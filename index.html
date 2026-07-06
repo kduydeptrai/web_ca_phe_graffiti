@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMB Agency | Caffeine & Cypher Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. CORE SETTINGS & VARIABLES --- */
+        :root {
+            --bg-dark: #0d0d0d;
+            --bg-asphalt: #181818;
+            --neon-lime: #39ff14;
+            --neon-pink: #ff007f;
+            --neon-yellow: #fff000;
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+            --font-heading: 'Bebas Neue', sans-serif;
+            --font-tag: 'Permanent Marker', cursive;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-pink);
+            border-radius: 4px;
+        }
+
+        /* --- 2. NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid rgba(255, 0, 127, 0.2);
+        }
+
+        .logo {
+            font-family: var(--font-tag);
+            font-size: 1.8rem;
+            color: var(--neon-lime);
+            text-shadow: 0 0 10px var(--neon-lime);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        /* --- 3. HERO SECTION (THE INTRO) --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1974&auto=format&fit=crop') no-repeat center center/cover;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 6rem;
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .hero-title span {
+            font-family: var(--font-tag);
+            color: var(--neon-pink);
+            text-shadow: 0 0 20px var(--neon-pink);
+            display: block;
+            font-size: 4.5rem;
+            transform: rotate(-3deg) translateY(10px);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-top: 25px;
+            margin-bottom: 40px;
+        }
+
+        .vinyl-container {
+            display: flex;
+            align-items: center;
+            background: rgba(24, 24, 24, 0.8);
+            padding: 15px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--neon-lime);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
+            cursor: pointer;
+        }
+
+        .vinyl {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #333 10%, #000 11%, #000 100%);
+            border-radius: 50%;
+            position: relative;
+            margin-right: 15px;
+            border: 1px solid #444;
+        }
+
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--neon-lime);
+            border-radius: 50%;
+        }
+
+        .spinning {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .track-info {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        /* --- 4. MENU SECTION (THE TRACKS) --- */
+        #menu {
+            padding: 100px 50px;
+            background-color: var(--bg-asphalt);
+            position: relative;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 40px;
+            letter-spacing: 3px;
+        }
+
+        .section-title span {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        /* SEARCH & FILTER CONTROLS */
+        .controls-container {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            background: var(--bg-dark);
+            border: 2px solid #333;
+            border-radius: 30px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .filter-tag {
+            padding: 8px 20px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 20px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .filter-tag:hover {
+            color: var(--neon-lime);
+            border-color: var(--neon-lime);
+        }
+
+        .filter-tag.active {
+            background: var(--neon-lime);
+            color: #000;
+            border-color: var(--neon-lime);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+            font-weight: bold;
+        }
+
+        /* MENU GRID */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-card {
+            background: var(--bg-dark);
+            border: 2px solid #222;
+            border-radius: 10px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s ease;
+        }
+
+        .menu-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .track-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.03);
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            transition: 0.3s;
+        }
+
+        .menu-card:hover .track-number {
+            color: rgba(255, 0, 127, 0.15);
+        }
+
+        .menu-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--neon-lime);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .menu-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            height: 70px;
+            overflow: hidden;
+        }
+
+        .menu-card .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-card .price {
+            font-family: var(--font-tag);
+            color: var(--neon-yellow);
+            font-size: 1.1rem;
+        }
+
+        .card-type-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            background: #222;
+            padding: 3px 10px;
+            border-radius: 4px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* --- 5. GALLERY SECTION (THE WALL) --- */
+        #gallery {
+            padding: 100px 50px;
+            background-color: var(--bg-dark);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 127, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .gallery-overlay h4 {
+            font-family: var(--font-tag);
+            font-size: 2rem;
+            color: var(--neon-yellow);
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+            filter: grayscale(100%) blur(2px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item:hover .gallery-overlay h4 {
+            transform: translateY(0);
+        }
+
+        /* --- 6. CONTACT SECTION (THE CYPHER) --- */
+        #contact {
+            padding: 100px 20px;
+            background: linear-gradient(rgba(24, 24, 24, 0.9), rgba(24, 24, 24, 0.95)), url('https://images.unsplash.com/photo-1571115764595-644a1f56a55c?q=80&w=1974&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flyer {
+            background: #111;
+            border: 3px dashed var(--neon-lime);
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.15);
+            transform: rotate(1deg);
+            position: relative;
+        }
+
+        .flyer::before {
+            content: 'HMB ';
+            position: absolute;
+            top: -25px;
+            left: 20px;
+            font-family: var(--font-tag);
+            background: var(--neon-pink);
+            color: #fff;
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            transform: rotate(-5deg);
+        }
+
+        .flyer h2 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .info-group {
+            margin-bottom: 20px;
+        }
+
+        .info-group h4 {
+            font-family: var(--font-heading);
+            color: var(--neon-pink);
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-group p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .sticker-storage {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 35px;
+        }
+
+        .sticker {
+            display: inline-block;
+            padding: 10px 20px;
+            font-family: var(--font-tag);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.2s ease;
+            box-shadow: 3px 3px 0px #000;
+        }
+
+        .sticker-insta {
+            background: var(--neon-yellow);
+            color: #000;
+            transform: rotate(-2deg);
+        }
+
+        .sticker-tiktok {
+            background: #00fff0;
+            color: #000;
+            transform: rotate(3deg);
+        }
+
+        .sticker:hover {
+            transform: scale(1.1) rotate(0deg);
+            box-shadow: 5px 5px 0px #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #080808;
+            font-size: 0.85rem;
+            color: #555;
+            border-top: 1px solid #111;
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            .hero-title { font-size: 4rem; }
+            .hero-title span { font-size: 3rem; }
+            #menu, #gallery { padding: 60px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <a href="#" class="logo">HMB AGENCY</a>
+        <ul class="nav-links">
+            <li><a href="#hero">Intro</a></li>
+            <li><a href="#menu">Tracks</a></li>
+            <li><a href="#gallery">The Wall</a></li>
+            <li><a href="#contact">Cypher</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <h1 class="hero-title">
+            Caffeine 
+            <span>& Cypher</span>
+        </h1>
+        <p class="hero-subtitle">Nơi vị đậm đà của hạt cà phê rang xay hòa quyện vào những con beat Boom-Bap nguyên bản và những vệt sơn Graffiti nổi loạn.</p>
+        
+        <div class="vinyl-container" id="playerBtn">
+            <div class="vinyl" id="vinylDisc"></div>
+            <div class="track-info" id="trackText">LO-FI BEATS: OFF</div>
+        </div>
+    </section>
+
+    <!-- MENU SECTION (THE TRACKS) -->
+    <section id="menu">
+        <h2 class="section-title">THE <span>TRACKLIST</span></h2>
+        
+        <!-- SEARCH & FILTER CONTROLS -->
+        <div class="controls-container">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm con beat đồ uống...">
+            </div>
+            <div class="filter-tags">
+                <span class="filter-tag active" data-filter="all">All Tracks</span>
+                <span class="filter-tag" data-filter="coffee">Coffee Remix</span>
+                <span class="filter-tag" data-filter="tea">Chill Tea</span>
+                <span class="filter-tag" data-filter="signature">Signature Cypher</span>
+                <span class="filter-tag" data-filter="snack">Street Food</span>
+            </div>
+        </div>
+
+        <!-- 20 PRODUCTS GRID -->
+        <div class="menu-grid" id="menuGrid">
+            <!-- COFFEE REMIX -->
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#01</div>
+                <h3>Espresso Remix</h3>
+                <p>Một cú drop caffeine nguyên chất cực mạnh, đánh thức mọi giác quan giống như tiếng trống Snare đập trực diện.</p>
+                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#02</div>
+                <h3>Boom-Bap Latte</h3>
+                <p>Sự cân bằng hoàn hảo giữa Espresso đậm đặc và sữa tươi béo ngậy. Êm dịu như những giai điệu Jazz Hop.</p>
+                <div class="card-footer"><span class="price">55.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#03</div>
+                <h3>Vinyl Phin Black</h3>
+                <p>Cà phê phin truyền thống đậm đặc, đen tuyền bóng bẩy như những chiếc đĩa than cổ điển vượt thời gian.</p>
+                <div class="card-footer"><span class="price">40.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#04</div>
+                <h3>Trap Macchiato</h3>
+                <p>Sữa béo ngậy đổ tầng với vệt Caramel sắc sảo, dồn dập kích thích vị giác giống một con beat Trap hiện đại.</p>
+                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#05</div>
+                <h3>Lo-Fi Americano</h3>
+                <p>Cà phê pha loãng thanh nhẹ, mộc mạc và tĩnh lặng, phù hợp cho những ngày mưa ngồi gõ code băm beat.</p>
+                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#06</div>
+                <h3>Freestyle Cappuccino</h3>
+                <p>Lớp bọt sữa bồng bềnh được tạo hình tự do (Art) ngẫu hứng như những câu rap freestyle đỉnh cao.</p>
+                <div class="card-footer"><span class="price">55.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+            <div class="menu-card" data-tag="coffee">
+                <div class="track-number">#07</div>
+                <h3>Mellow R&B Mocha</h3>
+                <p>Sự kết hợp ngọt ngào giữa cốt ca cao đậm và espresso, mượt mà và sâu lắng như một bản nhạc R&B.</p>
+                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Coffee</span></div>
+            </div>
+
+            <!-- CHILL TEA -->
+            <div class="menu-card" data-tag="tea">
+                <div class="track-number">#08</div>
+                <h3>Cypher Green Tea</h3>
+                <p>Trà xanh lài thanh mát, hậu vị ngọt dịu, tiếp thêm năng lượng bền bỉ cho những buổi tụ họp Cypher kéo dài.</p>
+                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Tea</span></div>
+            </div>
+            <div class="menu-card" data-tag="tea">
+                <div class="track-number">#09</div>
+                <h3>Breakdance Peach Tea</h3>
+                <p>Trà đào thơm nức kết hợp những miếng đào giòn sần sật, mang lại cảm giác năng động bùng nổ.</p>
+                <div class="card-footer"><span class="price">50.000đ</span><span class="card-type-tag">Tea</span></div>
+            </div>
+            <div class="menu-card" data-tag="tea">
+                <div class="track-number">#10</div>
+                <h3>Old-School Oolong</h3>
+                <p>Trà ô long đậm vị truyền thống, chát nhẹ đầu lưỡi ngọt sương về sau. Giá trị cốt lõi bền vững.</p>
+                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Tea</span></div>
+            </div>
+            <div class="menu-card" data-tag="tea">
+                <div class="track-number">#11</div>
+                <h3>Underground Matcha</h3>
+                <p>Cốt trà xanh Nhật Bản nguyên chất ẩn mình dưới lớp sữa tươi béo ngậy, đắng nhẹ thanh tao.</p>
+                <div class="card-footer"><span class="price">55.000đ</span><span class="card-type-tag">Tea</span></div>
+            </div>
+            <div class="menu-card" data-tag="tea">
+                <div class="track-number">#12</div>
+                <h3>Scratch Passion Tea</h3>
+                <p>Trà chanh leo chua sảng khoái, làm sạch vòm họng, giật nảy năng lượng như kỹ thuật scratch đĩa.</p>
+                <div class="card-footer"><span class="price">48.000đ</span><span class="card-type-tag">Tea</span></div>
+            </div>
+
+            <!-- SIGNATURE CYPHER -->
+            <div class="menu-card" data-tag="signature">
+                <div class="track-number">#13</div>
+                <h3>Graffiti Cold Brew</h3>
+                <p>Cà phê ủ lạnh 24h kết hợp siro trái cây nhiệt đới đầy màu sắc, bùng nổ thị giác và hương vị rebel.</p>
+                <div class="card-footer"><span class="price">65.000đ</span><span class="card-type-tag">Signature</span></div>
+            </div>
+            <div class="menu-card" data-tag="signature">
+                <div class="track-number">#14</div>
+                <h3>Beatbox Cookie Blended</h3>
+                <p>Bánh quy Oreo xay nhuyễn cùng kem béo, tạo nên những hạt vụn giòn rụm vui tai như tiếng trống beatbox.</p>
+                <div class="card-footer"><span class="price">65.000đ</span><span class="card-type-tag">Signature</span></div>
+            </div>
+            <div class="menu-card" data-tag="signature">
+                <div class="track-number">#15</div>
+                <h3>Acid Pink Smoothie</h3>
+                <p>Sinh tố dâu tây và sữa chua lên màu hồng Neon nổi loạn, vừa ngon miệng vừa chuẩn gu check-in.</p>
+                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Signature</span></div>
+            </div>
+            <div class="menu-card" data-tag="signature">
+                <div class="track-number">#16</div>
+                <h3>Lime Neon Mocktail</h3>
+                <p>Sự kết hợp giữa soda, chanh rực rỡ và lá bạc hà mát lạnh, thổi bay cái nóng oi bức của đường phố.</p>
+                <div class="card-footer"><span class="price">58.000đ</span><span class="card-type-tag">Signature</span></div>
+            </div>
+            <div class="menu-card" data-tag="signature">
+                <div class="track-number">#17</div>
+                <h3>Turntable Tropical</h3>
+                <p>Nước ép hỗn hợp xoài, dứa và chanh leo xoay vần hương vị một cách ảo diệu trong khoang miệng.</p>
+                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Signature</span></div>
+            </div>
+
+            <!-- STREET FOOD -->
+            <div class="menu-card" data-tag="snack">
+                <div class="track-number">#18</div>
+                <h3>Street Croissant</h3>
+                <p>Bánh sừng bò ngàn lớp nướng giòn rụm bơ thơm nức, nạp nhanh năng lượng cho các writer, dancer.</p>
+                <div class="card-footer"><span class="price">35.000đ</span><span class="card-type-tag">Snack</span></div>
+            </div>
+            <div class="menu-card" data-tag="snack">
+                <div class="track-number">#19</div>
+                <h3>B-Boy Brownie</h3>
+                <p>Bánh Chocolate Brownie đặc dẻo, ngọt đắng đậm đà, kết cấu vững chắc như một cú Freeze trong B-boy.</p>
+                <div class="card-footer"><span class="price">38.000đ</span><span class="card-type-tag">Snack</span></div>
+            </div>
+            <div class="menu-card" data-tag="snack">
+                <div class="track-number">#20</div>
+                <h3>Graffiti Donut</h3>
+                <p>Bánh vòng phủ lớp kem đường đa sắc màu ngẫu hứng, ngọt ngào và cực kỳ bắt mắt trên bàn tiệc.</p>
+                <div class="card-footer"><span class="price">32.000đ</span><span class="card-type-tag">Snack</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION (THE WALL) -->
+    <section id="gallery">
+        <h2 class="section-title">THE <span>WALL</span></h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=1974&auto=format&fit=crop" alt="Coffee Cup" class="gallery-img">
+                <div class="gallery-overlay"><h4>STREET CUP</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1974&auto=format&fit=crop" alt="Coffee Vibe" class="gallery-img">
+                <div class="gallery-overlay"><h4>SPRAY CAN & BEANS</h4></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070&auto=format&fit=crop" alt="Street Wear Checkin" class="gallery-img">
+                <div class="gallery-overlay"><h4>CYPHER ZONE</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION (THE CYPHER) -->
+    <section id="contact">
+        <div class="flyer">
+            <h2>THE CYPHER INFO</h2>
+            <div class="info-group">
+                <h4>DROP IN / ĐỊA BÀN</h4>
+                <p>123 Đường Underground, Quận Hip-Hop, TP. Street Art</p>
+            </div>
+            <div class="info-group">
+                <h4>ON AIR / GIỜ LÊN CON BEAT</h4>
+                <p>Mỗi ngày: 07:00 AM - 11:00 PM</p>
+            </div>
+            <div class="info-group">
+                <h4>HOTLINE</h4>
+                <p>090.HMB.GRAFFITI</p>
+            </div>
+            <div class="sticker-storage">
+                <a href="#" class="sticker sticker-insta"><i class="fab fa-instagram"></i> @HMB.Agency</a>
+                <a href="#" class="sticker sticker-tiktok"><i class="fab fa-tiktok"></i> HMB.Culture</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 HMB Agency. All Rights Reserved. Designed for Street Souls.</p>
+    </footer>
+
+    <!-- JAVASCRIPT EFFECTS & FILTER LOGIC -->
+    <script>
+        // Vinyl Player Interaction
+        const playerBtn = document.getElementById('playerBtn');
+        const vinylDisc = document.getElementById('vinylDisc');
+        const trackText = document.getElementById('trackText');
+        let isPlaying = false;
+
+        playerBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if(isPlaying) {
+                vinylDisc.classList.add('spinning');
+                trackText.innerText = "PLAYING: BOOM-BAP BEATS";
+                trackText.style.color = "var(--neon-pink)";
+                playerBtn.style.borderColor = "var(--neon-pink)";
+                playerBtn.style.boxShadow = "0 0 15px rgba(255, 0, 127, 0.4)";
+            } else {
+                vinylDisc.classList.remove('spinning');
+                trackText.innerText = "LO-FI BEATS: OFF";
+                trackText.style.color = "var(--text-light)";
+                playerBtn.style.borderColor = "var(--neon-lime)";
+                playerBtn.style.boxShadow = "0 0 15px rgba(57, 255, 20, 0.3)";
+            }
+        });
+
+        // LIVE SEARCH & TAG FILTER LOGIC (MULTI-FILTERING)
+        const searchInput = document.getElementById('searchInput');
+        const filterTags = document.querySelectorAll('.filter-tag');
+        const menuCards = document.querySelectorAll('.menu-card');
+
+        function liveFilter() {
+            const searchText = searchInput.value.toLowerCase().trim();
+            const activeTag = document.querySelector('.filter-tag.active').getAttribute('data-filter');
+
+            menuCards.forEach(card => {
+                const cardTitle = card.querySelector('h3').innerText.toLowerCase();
+                const cardDesc = card.querySelector('p').innerText.toLowerCase();
+                const cardTag = card.getAttribute('data-tag');
+
+                // Check text match
+                const matchesSearch = cardTitle.includes(searchText) || cardDesc.includes(searchText);
+                // Check tag match
+                const matchesTag = (activeTag === 'all') || (cardTag === activeTag);
+
+                if (matchesSearch && matchesTag) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search Input Listener
+        searchInput.addEventListener('input', liveFilter);
+
+        // Filter Tags Click Listener
+        filterTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                filterTags.forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                liveFilter();
+            });
+        });
+
+        // Parallax scroll effect
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const subtitle = document.querySelector('.hero-subtitle');
+            if (scrollPos < 400) {
+                subtitle.style.transform = `translateY(${scrollPos * 0.3}px)`;
+                subtitle.style.opacity = 1 - (scrollPos / 400);
+            }
+        });
+    </script>
+</body>
+</html>
