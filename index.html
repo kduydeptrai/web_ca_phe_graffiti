@@ -203,7 +203,6 @@
             text-shadow: 0 0 10px var(--neon-yellow);
         }
 
-        /* SEARCH & FILTER CONTROLS */
         .controls-container {
             max-width: 800px;
             margin: 0 auto 50px auto;
@@ -278,7 +277,7 @@
             font-weight: bold;
         }
 
-        /* MENU GRID */
+        /* MENU GRID - DESKTOP AUTO RESPONSIVE */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -303,18 +302,26 @@
             transform: translateY(-5px);
         }
 
-        .track-number {
-            font-family: var(--font-heading);
-            font-size: 3rem;
-            color: rgba(255, 255, 255, 0.03);
-            position: absolute;
-            top: 5px;
-            right: 15px;
-            transition: 0.3s;
+        .menu-card-img-container {
+            width: 100%;
+            aspect-ratio: 16 / 10; 
+            overflow: hidden;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            position: relative;
+            background-color: #151515;
         }
 
-        .menu-card:hover .track-number {
-            color: rgba(255, 0, 127, 0.15);
+        .menu-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center; 
+            transition: transform 0.4s ease;
+        }
+
+        .menu-card:hover .menu-card-img {
+            transform: scale(1.06);
         }
 
         .menu-card h3 {
@@ -346,11 +353,37 @@
             font-size: 1.1rem;
         }
 
+        /* Gom nhóm khu vực tag bên phải chân card */
+        .footer-tags-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* CHỈNH SỬA: Biến Track Number thành khối Tag nhỏ gọn gàng */
+        .track-number {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            background: #1e1e1e;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            transition: 0.3s ease;
+        }
+
+        .menu-card:hover .track-number {
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+
         .card-type-tag {
             font-size: 0.75rem;
             text-transform: uppercase;
             background: #222;
-            padding: 3px 10px;
+            padding: 4px 10px;
             border-radius: 4px;
             color: #888;
             letter-spacing: 1px;
@@ -525,12 +558,59 @@
             border-top: 1px solid #111;
         }
 
+        /* --- 8. RESPONSIVE DESIGN (MOBILE SPECIFIC CHANGES) --- */
         @media (max-width: 768px) {
             nav { padding: 20px; }
             .nav-links { display: none; }
             .hero-title { font-size: 4rem; }
             .hero-title span { font-size: 3rem; }
-            #menu, #gallery { padding: 60px 20px; }
+            #menu, #gallery { padding: 60px 15px; }
+
+            /* CHỈ ÉP 2 CỘT CHO THIẾT BỊ MOBILE Ở ĐÂY */
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .menu-card {
+                padding: 12px;
+                border-width: 1px;
+            }
+
+            .menu-card-img-container {
+                aspect-ratio: 4 / 3;
+                margin-bottom: 10px;
+            }
+
+            .menu-card h3 {
+                font-size: 1.2rem;
+                margin-bottom: 6px;
+            }
+
+            .menu-card p {
+                font-size: 0.75rem;
+                height: 50px; 
+                margin-bottom: 10px;
+                line-height: 1.4;
+            }
+
+            .menu-card .price {
+                font-size: 0.9rem;
+            }
+
+            .footer-tags-group {
+                gap: 4px;
+            }
+
+            .track-number {
+                font-size: 0.75rem;
+                padding: 2px 5px;
+            }
+
+            .card-type-tag {
+                font-size: 0.6rem;
+                padding: 2px 5px;
+            }
         }
     </style>
 </head>
@@ -582,133 +662,311 @@
 
         <!-- 20 PRODUCTS GRID -->
         <div class="menu-grid" id="menuGrid">
+            
             <!-- COFFEE REMIX -->
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#01</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Espresso Remix">
+                </div>
                 <h3>Espresso Remix</h3>
                 <p>Một cú drop caffeine nguyên chất cực mạnh, đánh thức mọi giác quan giống như tiếng trống Snare đập trực diện.</p>
-                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">45.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#01</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#02</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Boom-Bap Latte">
+                </div>
                 <h3>Boom-Bap Latte</h3>
                 <p>Sự cân bằng hoàn hảo giữa Espresso đậm đặc và sữa tươi béo ngậy. Êm dịu như những giai điệu Jazz Hop.</p>
-                <div class="card-footer"><span class="price">55.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">55.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#02</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#03</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Vinyl Phin Black">
+                </div>
                 <h3>Vinyl Phin Black</h3>
                 <p>Cà phê phin truyền thống đậm đặc, đen tuyền bóng bẩy như những chiếc đĩa than cổ điển vượt thời gian.</p>
-                <div class="card-footer"><span class="price">40.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">40.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#03</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#04</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Trap Macchiato">
+                </div>
                 <h3>Trap Macchiato</h3>
                 <p>Sữa béo ngậy đổ tầng với vệt Caramel sắc sảo, dồn dập kích thích vị giác giống một con beat Trap hiện đại.</p>
-                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">60.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#04</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#05</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Lo-Fi Americano">
+                </div>
                 <h3>Lo-Fi Americano</h3>
                 <p>Cà phê pha loãng thanh nhẹ, mộc mạc và tĩnh lặng, phù hợp cho những ngày mưa ngồi gõ code băm beat.</p>
-                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">45.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#05</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#06</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Freestyle Cappuccino">
+                </div>
                 <h3>Freestyle Cappuccino</h3>
                 <p>Lớp bọt sữa bồng bềnh được tạo hình tự do (Art) ngẫu hứng như những câu rap freestyle đỉnh cao.</p>
-                <div class="card-footer"><span class="price">55.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">55.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#06</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#07</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Mellow R&B Mocha">
+                </div>
                 <h3>Mellow R&B Mocha</h3>
                 <p>Sự kết hợp ngọt ngào giữa cốt ca cao đậm và espresso, mượt mà và sâu lắng như một bản nhạc R&B.</p>
-                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Coffee</span></div>
+                <div class="card-footer">
+                    <span class="price">60.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#07</span>
+                        <span class="card-type-tag">Coffee</span>
+                    </div>
+                </div>
             </div>
 
             <!-- CHILL TEA -->
             <div class="menu-card" data-tag="tea">
-                <div class="track-number">#08</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Cypher Green Tea">
+                </div>
                 <h3>Cypher Green Tea</h3>
                 <p>Trà xanh lài thanh mát, hậu vị ngọt dịu, tiếp thêm năng lượng bền bỉ cho những buổi tụ họp Cypher kéo dài.</p>
-                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Tea</span></div>
+                <div class="card-footer">
+                    <span class="price">45.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#08</span>
+                        <span class="card-type-tag">Tea</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="tea">
-                <div class="track-number">#09</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Breakdance Peach Tea">
+                </div>
                 <h3>Breakdance Peach Tea</h3>
                 <p>Trà đào thơm nức kết hợp những miếng đào giòn sần sật, mang lại cảm giác năng động bùng nổ.</p>
-                <div class="card-footer"><span class="price">50.000đ</span><span class="card-type-tag">Tea</span></div>
+                <div class="card-footer">
+                    <span class="price">50.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#09</span>
+                        <span class="card-type-tag">Tea</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="tea">
-                <div class="track-number">#10</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Old-School Oolong">
+                </div>
                 <h3>Old-School Oolong</h3>
                 <p>Trà ô long đậm vị truyền thống, chát nhẹ đầu lưỡi ngọt sương về sau. Giá trị cốt lõi bền vững.</p>
-                <div class="card-footer"><span class="price">45.000đ</span><span class="card-type-tag">Tea</span></div>
+                <div class="card-footer">
+                    <span class="price">45.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#10</span>
+                        <span class="card-type-tag">Tea</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="tea">
-                <div class="track-number">#11</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Underground Matcha">
+                </div>
                 <h3>Underground Matcha</h3>
                 <p>Cốt trà xanh Nhật Bản nguyên chất ẩn mình dưới lớp sữa tươi béo ngậy, đắng nhẹ thanh tao.</p>
-                <div class="card-footer"><span class="price">55.000đ</span><span class="card-type-tag">Tea</span></div>
+                <div class="card-footer">
+                    <span class="price">55.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#11</span>
+                        <span class="card-type-tag">Tea</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="tea">
-                <div class="track-number">#12</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Scratch Passion Tea">
+                </div>
                 <h3>Scratch Passion Tea</h3>
                 <p>Trà chanh leo chua sảng khoái, làm sạch vòm họng, giật nảy năng lượng như kỹ thuật scratch đĩa.</p>
-                <div class="card-footer"><span class="price">48.000đ</span><span class="card-type-tag">Tea</span></div>
+                <div class="card-footer">
+                    <span class="price">48.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#12</span>
+                        <span class="card-type-tag">Tea</span>
+                    </div>
+                </div>
             </div>
 
             <!-- SIGNATURE CYPHER -->
             <div class="menu-card" data-tag="signature">
-                <div class="track-number">#13</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Graffiti Cold Brew">
+                </div>
                 <h3>Graffiti Cold Brew</h3>
                 <p>Cà phê ủ lạnh 24h kết hợp siro trái cây nhiệt đới đầy màu sắc, bùng nổ thị giác và hương vị rebel.</p>
-                <div class="card-footer"><span class="price">65.000đ</span><span class="card-type-tag">Signature</span></div>
+                <div class="card-footer">
+                    <span class="price">65.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#13</span>
+                        <span class="card-type-tag">Signature</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="signature">
-                <div class="track-number">#14</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Beatbox Cookie Blended">
+                </div>
                 <h3>Beatbox Cookie Blended</h3>
                 <p>Bánh quy Oreo xay nhuyễn cùng kem béo, tạo nên những hạt vụn giòn rụm vui tai như tiếng trống beatbox.</p>
-                <div class="card-footer"><span class="price">65.000đ</span><span class="card-type-tag">Signature</span></div>
+                <div class="card-footer">
+                    <span class="price">65.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#14</span>
+                        <span class="card-type-tag">Signature</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="signature">
-                <div class="track-number">#15</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Acid Pink Smoothie">
+                </div>
                 <h3>Acid Pink Smoothie</h3>
                 <p>Sinh tố dâu tây và sữa chua lên màu hồng Neon nổi loạn, vừa ngon miệng vừa chuẩn gu check-in.</p>
-                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Signature</span></div>
+                <div class="card-footer">
+                    <span class="price">60.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#15</span>
+                        <span class="card-type-tag">Signature</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="signature">
-                <div class="track-number">#16</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Lime Neon Mocktail">
+                </div>
                 <h3>Lime Neon Mocktail</h3>
                 <p>Sự kết hợp giữa soda, chanh rực rỡ và lá bạc hà mát lạnh, thổi bay cái nóng oi bức của đường phố.</p>
-                <div class="card-footer"><span class="price">58.000đ</span><span class="card-type-tag">Signature</span></div>
+                <div class="card-footer">
+                    <span class="price">58.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#16</span>
+                        <span class="card-type-tag">Signature</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="signature">
-                <div class="track-number">#17</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Turntable Tropical">
+                </div>
                 <h3>Turntable Tropical</h3>
                 <p>Nước ép hỗn hợp xoài, dứa và chanh leo xoay vần hương vị một cách ảo diệu trong khoang miệng.</p>
-                <div class="card-footer"><span class="price">60.000đ</span><span class="card-type-tag">Signature</span></div>
+                <div class="card-footer">
+                    <span class="price">60.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#17</span>
+                        <span class="card-type-tag">Signature</span>
+                    </div>
+                </div>
             </div>
 
             <!-- STREET FOOD -->
             <div class="menu-card" data-tag="snack">
-                <div class="track-number">#18</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Street Croissant">
+                </div>
                 <h3>Street Croissant</h3>
                 <p>Bánh sừng bò ngàn lớp nướng giòn rụm bơ thơm nức, nạp nhanh năng lượng cho các writer, dancer.</p>
-                <div class="card-footer"><span class="price">35.000đ</span><span class="card-type-tag">Snack</span></div>
+                <div class="card-footer">
+                    <span class="price">35.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#18</span>
+                        <span class="card-type-tag">Snack</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="snack">
-                <div class="track-number">#19</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="B-Boy Brownie">
+                </div>
                 <h3>B-Boy Brownie</h3>
                 <p>Bánh Chocolate Brownie đặc dẻo, ngọt đắng đậm đà, kết cấu vững chắc như một cú Freeze trong B-boy.</p>
-                <div class="card-footer"><span class="price">38.000đ</span><span class="card-type-tag">Snack</span></div>
+                <div class="card-footer">
+                    <span class="price">38.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#19</span>
+                        <span class="card-type-tag">Snack</span>
+                    </div>
+                </div>
             </div>
+
             <div class="menu-card" data-tag="snack">
-                <div class="track-number">#20</div>
+                <div class="menu-card-img-container">
+                    <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Graffiti Donut">
+                </div>
                 <h3>Graffiti Donut</h3>
                 <p>Bánh vòng phủ lớp kem đường đa sắc màu ngẫu hứng, ngọt ngào và cực kỳ bắt mắt trên bàn tiệc.</p>
-                <div class="card-footer"><span class="price">32.000đ</span><span class="card-type-tag">Snack</span></div>
+                <div class="card-footer">
+                    <span class="price">32.000đ</span>
+                    <div class="footer-tags-group">
+                        <span class="track-number">#20</span>
+                        <span class="card-type-tag">Snack</span>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -725,7 +983,7 @@
                 <div class="gallery-overlay"><h4>SPRAY CAN & BEANS</h4></div>
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=2070&auto=format&fit=crop" alt="Street Wear Checkin" class="gallery-img">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYTV-Z_W1Ej3MTLWGfJRuwT3DzSyTETh_qCXQCnnE5mBSF4yf7tWW_WkoD&s=10" alt="Street Wear Checkin" class="gallery-img">
                 <div class="gallery-overlay"><h4>CYPHER ZONE</h4></div>
             </div>
         </div>
@@ -745,11 +1003,11 @@
             </div>
             <div class="info-group">
                 <h4>HOTLINE</h4>
-                <p>090.HMB.GRAFFITI</p>
+                <p>0855 555 140</p>
             </div>
             <div class="sticker-storage">
                 <a href="#" class="sticker sticker-insta"><i class="fab fa-instagram"></i> @HMB.Agency</a>
-                <a href="#" class="sticker sticker-tiktok"><i class="fab fa-tiktok"></i> HMB.Culture</a>
+                <a href="#" class="sticker sticker-tiktok"><i class="fab fa-tiktok"></i> HMB aGENCY</a>
             </div>
         </div>
     </section>
@@ -798,9 +1056,7 @@
                 const cardDesc = card.querySelector('p').innerText.toLowerCase();
                 const cardTag = card.getAttribute('data-tag');
 
-                // Check text match
                 const matchesSearch = cardTitle.includes(searchText) || cardDesc.includes(searchText);
-                // Check tag match
                 const matchesTag = (activeTag === 'all') || (cardTag === activeTag);
 
                 if (matchesSearch && matchesTag) {
@@ -811,10 +1067,8 @@
             });
         }
 
-        // Search Input Listener
         searchInput.addEventListener('input', liveFilter);
 
-        // Filter Tags Click Listener
         filterTags.forEach(tag => {
             tag.addEventListener('click', () => {
                 filterTags.forEach(t => t.classList.remove('active'));
