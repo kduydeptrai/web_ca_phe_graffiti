@@ -384,37 +384,45 @@
             letter-spacing: 1px;
         }
 
-        /* --- 5. GALLERY SECTION (THE WALL - MOSAIC DECOR) --- */
+        /* --- 5. GALLERY SECTION (THE WALL - ĐỔI THEO THIẾT KẾ KHUNG TRANH MẪU) --- */
         #gallery {
             padding: 100px 50px;
             background-color: var(--bg-dark);
         }
 
+        /* Khởi tạo Grid 4 cột và 6 hàng để chia tỷ lệ đối xứng tuyệt đối như hình chụp */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* Cố định 4 cột chính */
-            grid-auto-rows: 240px; 
-            gap: 12px; 
-            max-width: 1200px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(6, 110px); /* Chiều cao cơ sở mỗi hàng trên PC */
+            gap: 16px; /* Khoảng cách vừa phải tạo kẽ hở giữa các khung tranh */
+            max-width: 900px;
             margin: 0 auto;
+            padding: 20px;
+            background: #0a0a0a;
+            border-radius: 8px;
+            border: 1px solid #1a1a1a;
         }
 
         .gallery-item {
             position: relative;
             height: 100%; 
             width: 100%;
-            border-radius: 6px;
+            border: 5px solid #111; /* Đóng viền khung tranh gỗ đen dày dặn giống ảnh mẫu */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); /* Tạo đổ bóng nổi khối 3D lên tường */
+            background: #151515;
             overflow: hidden;
             cursor: pointer;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        /* Định hình kích thước phân bổ các mảnh tranh decor */
-        .gi-1 { grid-column: span 2; grid-row: span 2; } 
-        .gi-2 { grid-column: span 2; grid-row: span 1; } 
-        .gi-3 { grid-column: span 1; grid-row: span 1; } 
-        .gi-4 { grid-column: span 1; grid-row: span 1; } 
-        .gi-5 { grid-column: span 2; grid-row: span 1; } 
-        .gi-6 { grid-column: span 2; grid-row: span 1; } 
+        /* Map tọa độ Grid bám sát 100% theo ảnh mẫu */
+        .gi-1 { grid-column: 1; grid-row: 3 / 5; } /* Tranh bìa trái (Sunflowers) */
+        .gi-2 { grid-column: 2; grid-row: 1 / 3; } /* Tranh nhỏ trên giữa (Single Flower) */
+        .gi-3 { grid-column: 2; grid-row: 3 / 7; } /* Tranh lớn dưới giữa (Girl with flowers) */
+        .gi-4 { grid-column: 3; grid-row: 1 / 5; } /* Tranh lớn trên phải (Girl back view) */
+        .gi-5 { grid-column: 3; grid-row: 5 / 7; } /* Tranh nhỏ dưới phải (Girl & Dog) */
+        .gi-6 { grid-column: 4; grid-row: 2 / 4; } /* Tranh bìa phải (Daisies) */
 
         .gallery-img {
             width: 100%;
@@ -443,14 +451,19 @@
 
         .gallery-overlay h4 {
             font-family: var(--font-tag);
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--neon-yellow);
-            transform: translateY(20px);
+            transform: translateY(15px);
             transition: transform 0.4s ease;
         }
 
+        .gallery-item:hover {
+            transform: scale(1.03) translateY(-2px);
+            border-color: var(--neon-pink);
+            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.3);
+        }
+
         .gallery-item:hover .gallery-img {
-            transform: scale(1.05);
             filter: grayscale(100%) blur(1px);
         }
 
@@ -608,16 +621,23 @@
             .track-number { font-size: 0.75rem; padding: 2px 5px; }
             .card-type-tag { font-size: 0.6rem; padding: 2px 5px; }
 
-            /* CẬP NHẬT TRÊN MOBILE: Giữ nguyên bố cục tranh xếp mảnh như PC */
+            /* GIỮ NGUYÊN BỐ CỤC TRANH CỦA PC TRÊN MOBILE - CHỈ THU NHỎ KÍCH THƯỚC */
             .gallery-grid {
-                grid-template-columns: repeat(4, 1fr); /* Giữ nguyên 4 cột chính */
-                grid-auto-rows: 95px; /* Thu nhỏ chiều cao của mỗi hàng để vừa khít màn hình nhỏ */
-                gap: 6px; /* Thu hẹp khe hở giữa các khung tranh */
+                grid-template-columns: repeat(4, 1fr); /* Khóa chặt 4 cột không đổi */
+                grid-template-rows: repeat(6, 52px); /* Giảm chiều cao hàng xuống để thu nhỏ bộ tranh */
+                gap: 6px; /* Co hẹp khoảng cách viền giữa các bức ảnh */
+                padding: 10px;
             }
 
-            /* Thu nhỏ font chữ hover để không bị vỡ chữ/tràn chữ ở các ô tranh nhỏ (#3, #4) */
+            .gallery-item {
+                border-width: 2px; /* Mỏng viền đen lại cho tương thích mobile */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+            }
+
+            /* Thu nhỏ text hover tránh tràn chữ ở các ô tranh nhỏ gi-2 và gi-5 */
             .gallery-overlay h4 {
-                font-size: 0.85rem;
+                font-size: 0.65rem;
+                transform: translateY(5px);
             }
         }
     </style>
@@ -757,7 +777,6 @@
             </div>
 
             <div class="menu-card" data-tag="coffee">
-                <div class="track-number">#07</div>
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Mellow R&B Mocha">
                 </div>
@@ -974,28 +993,28 @@
         <h2 class="section-title">THE <span>WALL</span></h2>
         <div class="gallery-grid">
             <div class="gallery-item gi-1">
-                <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=800&auto=format&fit=crop" alt="Coffee Cup" class="gallery-img">
-                <div class="gallery-overlay"><h4>STREET CUP</h4></div>
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop" alt="Street Yellow Art" class="gallery-img">
+                <div class="gallery-overlay"><h4>STREET TAG</h4></div>
             </div>
             <div class="gallery-item gi-2">
-                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800&auto=format&fit=crop" alt="Coffee Vibe" class="gallery-img">
-                <div class="gallery-overlay"><h4>SPRAY & BEANS</h4></div>
+                <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=600&auto=format&fit=crop" alt="Coffee Cup Top" class="gallery-img">
+                <div class="gallery-overlay"><h4>BEAN DROP</h4></div>
             </div>
             <div class="gallery-item gi-3">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600&auto=format&fit=crop" alt="Coffee Latte Art" class="gallery-img">
-                <div class="gallery-overlay"><h4>LATTE BAR</h4></div>
+                <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=600&auto=format&fit=crop" alt="Barista Vibe" class="gallery-img">
+                <div class="gallery-overlay"><h4>CYPHER HUB</h4></div>
             </div>
             <div class="gallery-item gi-4">
-                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop" alt="Cafe Underground Vibe" class="gallery-img">
-                <div class="gallery-overlay"><h4>SOUL ZONE</h4></div>
+                <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?q=80&w=600&auto=format&fit=crop" alt="Graffiti Wall Paint" class="gallery-img">
+                <div class="gallery-overlay"><h4>MURAL ART</h4></div>
             </div>
             <div class="gallery-item gi-5">
-                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=800&auto=format&fit=crop" alt="Street Wear Checkin" class="gallery-img">
-                <div class="gallery-overlay"><h4>CYPHER AREA</h4></div>
+                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=600&auto=format&fit=crop" alt="Streetwear Look" class="gallery-img">
+                <div class="gallery-overlay"><h4>STREET VIBE</h4></div>
             </div>
             <div class="gallery-item gi-6">
-                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800&auto=format&fit=crop" alt="Neon Underground Party" class="gallery-img">
-                <div class="gallery-overlay"><h4>NIGHT CYPHER</h4></div>
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=600&auto=format&fit=crop" alt="Neon Pattern Art" class="gallery-img">
+                <div class="gallery-overlay"><h4>NEON GLOW</h4></div>
             </div>
         </div>
     </section>
