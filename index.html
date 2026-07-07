@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMB Agency | Caffeine & Cypher Hub</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -277,7 +275,6 @@
             font-weight: bold;
         }
 
-        /* MENU GRID - DESKTOP AUTO RESPONSIVE */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -353,14 +350,12 @@
             font-size: 1.1rem;
         }
 
-        /* Gom nhóm khu vực tag bên phải chân card */
         .footer-tags-group {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        /* CHỈNH SỬA: Biến Track Number thành khối Tag nhỏ gọn gàng */
         .track-number {
             font-family: var(--font-heading);
             font-size: 1.1rem;
@@ -389,32 +384,44 @@
             letter-spacing: 1px;
         }
 
-        /* --- 5. GALLERY SECTION (THE WALL) --- */
+        /* --- 5. GALLERY SECTION (THE WALL - CẬP NHẬT BỐ CỤC DECOR) --- */
         #gallery {
             padding: 100px 50px;
             background-color: var(--bg-dark);
         }
 
+        /* Khởi tạo Grid hệ tranh Decor Mosaic 4 cột cố định trên PC */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 240px; /* Chiều cao cơ sở cho mỗi hàng */
+            gap: 12px; /* Đặt khoảng cách khít nhau như các khung tranh treo sát */
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .gallery-item {
             position: relative;
-            height: 350px;
-            border-radius: 8px;
+            height: 100%; /* Ép khung tranh chiếm trọn ô Grid */
+            width: 100%;
+            border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
         }
+
+        /* Cấu hình tỷ lệ hình học từng khối tranh decor trên Desktop */
+        .gi-1 { grid-column: span 2; grid-row: span 2; } /* Khối vuông lớn tiêu điểm */
+        .gi-2 { grid-column: span 2; grid-row: span 1; } /* Khối chữ nhật ngang */
+        .gi-3 { grid-column: span 1; grid-row: span 1; } /* Khối nhỏ 1 */
+        .gi-4 { grid-column: span 1; grid-row: span 1; } /* Khối nhỏ 2 */
+        .gi-5 { grid-column: span 2; grid-row: span 1; } /* Khối ngang chân trái */
+        .gi-6 { grid-column: span 2; grid-row: span 1; } /* Khối ngang chân phải */
 
         .gallery-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center; /* Đảm bảo ảnh tự do co giãn không mất gốc */
             transition: transform 0.5s ease, filter 0.5s ease;
         }
 
@@ -437,15 +444,15 @@
 
         .gallery-overlay h4 {
             font-family: var(--font-tag);
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--neon-yellow);
             transform: translateY(20px);
             transition: transform 0.4s ease;
         }
 
         .gallery-item:hover .gallery-img {
-            transform: scale(1.1);
-            filter: grayscale(100%) blur(2px);
+            transform: scale(1.05);
+            filter: grayscale(100%) blur(1px);
         }
 
         .gallery-item:hover .gallery-overlay {
@@ -558,7 +565,7 @@
             border-top: 1px solid #111;
         }
 
-        /* --- 8. RESPONSIVE DESIGN (MOBILE SPECIFIC CHANGES) --- */
+        /* --- 8. RESPONSIVE DESIGN --- */
         @media (max-width: 768px) {
             nav { padding: 20px; }
             .nav-links { display: none; }
@@ -566,7 +573,7 @@
             .hero-title span { font-size: 3rem; }
             #menu, #gallery { padding: 60px 15px; }
 
-            /* CHỈ ÉP 2 CỘT CHO THIẾT BỊ MOBILE Ở ĐÂY */
+            /* ÉP 2 CỘT CHO THIẾT BỊ MOBILE phần menu */
             .menu-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
@@ -598,25 +605,21 @@
                 font-size: 0.9rem;
             }
 
-            .footer-tags-group {
-                gap: 4px;
-            }
+            .footer-tags-group { gap: 4px; }
+            .track-number { font-size: 0.75rem; padding: 2px 5px; }
+            .card-type-tag { font-size: 0.6rem; padding: 2px 5px; }
 
-            .track-number {
-                font-size: 0.75rem;
-                padding: 2px 5px;
-            }
-
-            .card-type-tag {
-                font-size: 0.6rem;
-                padding: 2px 5px;
+            /* CẤU HÌNH TRANH CYPHER DECOR TRÊN MOBILE */
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); /* Ép về 2 cột khít sát nhau */
+                grid-auto-rows: 150px; /* Giảm chiều cao hàng trên mobile */
+                gap: 8px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <nav>
         <a href="#" class="logo">HMB AGENCY</a>
         <ul class="nav-links">
@@ -627,7 +630,6 @@
         </ul>
     </nav>
 
-    <!-- HERO SECTION -->
     <section id="hero">
         <h1 class="hero-title">
             Caffeine 
@@ -641,11 +643,9 @@
         </div>
     </section>
 
-    <!-- MENU SECTION (THE TRACKS) -->
     <section id="menu">
         <h2 class="section-title">THE <span>TRACKLIST</span></h2>
         
-        <!-- SEARCH & FILTER CONTROLS -->
         <div class="controls-container">
             <div class="search-box">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -660,10 +660,8 @@
             </div>
         </div>
 
-        <!-- 20 PRODUCTS GRID -->
         <div class="menu-grid" id="menuGrid">
             
-            <!-- COFFEE REMIX -->
             <div class="menu-card" data-tag="coffee">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Espresso Remix">
@@ -769,7 +767,6 @@
                 </div>
             </div>
 
-            <!-- CHILL TEA -->
             <div class="menu-card" data-tag="tea">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Cypher Green Tea">
@@ -845,7 +842,6 @@
                 </div>
             </div>
 
-            <!-- SIGNATURE CYPHER -->
             <div class="menu-card" data-tag="signature">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Graffiti Cold Brew">
@@ -921,7 +917,6 @@
                 </div>
             </div>
 
-            <!-- STREET FOOD -->
             <div class="menu-card" data-tag="snack">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Street Croissant">
@@ -970,26 +965,36 @@
         </div>
     </section>
 
-    <!-- GALLERY SECTION (THE WALL) -->
     <section id="gallery">
         <h2 class="section-title">THE <span>WALL</span></h2>
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=1974&auto=format&fit=crop" alt="Coffee Cup" class="gallery-img">
+            <div class="gallery-item gi-1">
+                <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?q=80&w=800&auto=format&fit=crop" alt="Coffee Cup" class="gallery-img">
                 <div class="gallery-overlay"><h4>STREET CUP</h4></div>
             </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=1974&auto=format&fit=crop" alt="Coffee Vibe" class="gallery-img">
-                <div class="gallery-overlay"><h4>SPRAY CAN & BEANS</h4></div>
+            <div class="gallery-item gi-2">
+                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800&auto=format&fit=crop" alt="Coffee Vibe" class="gallery-img">
+                <div class="gallery-overlay"><h4>SPRAY & BEANS</h4></div>
             </div>
-            <div class="gallery-item">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYTV-Z_W1Ej3MTLWGfJRuwT3DzSyTETh_qCXQCnnE5mBSF4yf7tWW_WkoD&s=10" alt="Street Wear Checkin" class="gallery-img">
-                <div class="gallery-overlay"><h4>CYPHER ZONE</h4></div>
+            <div class="gallery-item gi-3">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=600&auto=format&fit=crop" alt="Coffee Latte Art" class="gallery-img">
+                <div class="gallery-overlay"><h4>LATTE BAR</h4></div>
+            </div>
+            <div class="gallery-item gi-4">
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=600&auto=format&fit=crop" alt="Cafe Underground Vibe" class="gallery-img">
+                <div class="gallery-overlay"><h4>SOUL ZONE</h4></div>
+            </div>
+            <div class="gallery-item gi-5">
+                <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?q=80&w=800&auto=format&fit=crop" alt="Street Wear Checkin" class="gallery-img">
+                <div class="gallery-overlay"><h4>CYPHER AREA</h4></div>
+            </div>
+            <div class="gallery-item gi-6">
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=800&auto=format&fit=crop" alt="Neon Underground Party" class="gallery-img">
+                <div class="gallery-overlay"><h4>NIGHT CYPHER</h4></div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACT SECTION (THE CYPHER) -->
     <section id="contact">
         <div class="flyer">
             <h2>THE CYPHER INFO</h2>
@@ -1003,21 +1008,19 @@
             </div>
             <div class="info-group">
                 <h4>HOTLINE</h4>
-                <p>0855 555 140</p>
+                <p>090.HMB.GRAFFITI</p>
             </div>
             <div class="sticker-storage">
                 <a href="#" class="sticker sticker-insta"><i class="fab fa-instagram"></i> @HMB.Agency</a>
-                <a href="#" class="sticker sticker-tiktok"><i class="fab fa-tiktok"></i> HMB aGENCY</a>
+                <a href="#" class="sticker sticker-tiktok"><i class="fab fa-tiktok"></i> HMB.Culture</a>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 HMB Agency. All Rights Reserved. Designed for Street Souls.</p>
     </footer>
 
-    <!-- JAVASCRIPT EFFECTS & FILTER LOGIC -->
     <script>
         // Vinyl Player Interaction
         const playerBtn = document.getElementById('playerBtn');
