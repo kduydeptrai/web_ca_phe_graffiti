@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HMB Agency | Caffeine & Cypher Hub</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -34,6 +36,7 @@
             color: var(--text-light);
             font-family: var(--font-body);
             overflow-x: hidden;
+            position: relative;
         }
 
         ::-webkit-scrollbar {
@@ -45,6 +48,19 @@
         ::-webkit-scrollbar-thumb {
             background: var(--neon-pink);
             border-radius: 4px;
+        }
+
+        /* KHUNG CSS VẬT THỂ TRÔI NỔI NỀN - CHUẨN ĐỒNG BỘ */
+        .floating-obj {
+            position: absolute;
+            color: transparent; /* Tạo ruột trong suốt */
+            -webkit-text-stroke: 2px var(--neon-color); /* Đường viền neon đậm chất stencil graffiti */
+            filter: drop-shadow(0 0 8px var(--neon-color)); /* Hiệu ứng phát sáng neon bụi bặm */
+            pointer-events: none;
+            z-index: 1; /* Nằm dưới text nhưng nổi trên lớp nền tối */
+            opacity: 0.25; /* Độ mờ tinh tế không gây rối mắt khi xem sản phẩm */
+            will-change: transform;
+            transition: transform 0.1s linear;
         }
 
         /* --- 2. NAVIGATION & CART TRIGER --- */
@@ -137,6 +153,7 @@
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1974&auto=format&fit=crop') no-repeat center center/cover;
             position: relative;
             padding: 0 20px;
+            z-index: 10;
         }
 
         .hero-title {
@@ -218,6 +235,7 @@
             padding: 100px 50px;
             background-color: var(--bg-asphalt);
             position: relative;
+            z-index: 10;
         }
 
         .section-title {
@@ -427,6 +445,8 @@
         #gallery {
             padding: 100px 50px;
             background-color: var(--bg-dark);
+            position: relative;
+            z-index: 10;
         }
 
         .gallery-grid {
@@ -519,6 +539,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            z-index: 10;
         }
 
         .flyer {
@@ -693,7 +715,6 @@
             font-size: 1rem;
         }
 
-        /* Nút loại bỏ sản phẩm riêng lẻ */
         .remove-item-btn {
             background: none;
             border: none;
@@ -753,6 +774,8 @@
             font-size: 0.85rem;
             color: #555;
             border-top: 1px solid #111;
+            position: relative;
+            z-index: 10;
         }
 
         /* --- 8. RESPONSIVE DESIGN --- */
@@ -794,6 +817,10 @@
 </head>
 <body>
 
+    <!-- KHUNG CHỨA TOÀN BỘ VẬT THỂ PARALLAX CHÌM DƯỚI NỀN -->
+    <div id="bg-parallax-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none;"></div>
+
+    <!-- NAVBAR -->
     <nav>
         <a href="#" class="logo">HMB AGENCY</a>
         <div class="nav-right-zone">
@@ -810,13 +837,13 @@
         </div>
     </nav>
 
+    <!-- SIDEBAR GIỎ HÀNG -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>CURRENT TRACKS</h2>
             <button class="cart-close-btn" id="cartCloseBtn"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="cart-items-container" id="cartItemsContainer">
-            </div>
+        <div class="cart-items-container" id="cartItemsContainer"></div>
         <div class="cart-footer-panel">
             <div class="cart-bill-summary">
                 <span>TOTAL:</span>
@@ -826,6 +853,7 @@
         </div>
     </div>
 
+    <!-- HERO SECTION -->
     <section id="hero">
         <h1 class="hero-title">
             Caffeine 
@@ -839,6 +867,7 @@
         </div>
     </section>
 
+    <!-- MENU SECTION -->
     <section id="menu">
         <h2 class="section-title">THE <span>TRACKLIST</span></h2>
         
@@ -857,6 +886,7 @@
         </div>
 
         <div class="menu-grid" id="menuGrid">
+            <!-- COFFEE REMIX -->
             <div class="menu-card" data-tag="coffee">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Espresso Remix">
@@ -962,6 +992,7 @@
                 </div>
             </div>
 
+            <!-- CHILL TEA -->
             <div class="menu-card" data-tag="tea">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Cypher Green Tea">
@@ -1037,6 +1068,7 @@
                 </div>
             </div>
 
+            <!-- SIGNATURE CYPHER -->
             <div class="menu-card" data-tag="signature">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Graffiti Cold Brew">
@@ -1112,6 +1144,7 @@
                 </div>
             </div>
 
+            <!-- STREET FOOD -->
             <div class="menu-card" data-tag="snack">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Street Croissant">
@@ -1160,6 +1193,7 @@
         </div>
     </section>
 
+    <!-- GALLERY SECTION -->
     <section id="gallery">
         <h2 class="section-title">THE <span>WALL</span></h2>
         <div class="gallery-grid">
@@ -1190,6 +1224,7 @@
         </div>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section id="contact">
         <div class="flyer">
             <h2>THE CYPHER INFO</h2>
@@ -1212,10 +1247,12 @@
         </div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 HMB Agency. All Rights Reserved. Designed for Street Souls.</p>
     </footer>
 
+    <!-- JAVASCRIPT EFFECTS, FILTER & PARALLAX LOGIC -->
     <script>
         // --- 1. Đầu Đĩa Than Vinyl Player ---
         const playerBtn = document.getElementById('playerBtn');
@@ -1274,7 +1311,7 @@
             });
         });
 
-        // --- 3. LOGIC GIỎ HÀNG THÔNG MINH (BỔ SUNG CHỨC NĂNG XÓA) ---
+        // --- 3. LOGIC GIỎ HÀNG THÔNG MINH ---
         let globalCart = [];
         const cartSidebar = document.getElementById('cartSidebar');
         const cartOpenBtn = document.getElementById('cartOpenBtn');
@@ -1286,7 +1323,6 @@
         cartOpenBtn.addEventListener('click', () => cartSidebar.classList.add('open'));
         cartCloseBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
 
-        // Hàm thêm sản phẩm
         function pushToCart(name, price) {
             const existingItem = globalCart.find(item => item.name === name);
             if (existingItem) {
@@ -1304,13 +1340,11 @@
             }, 400);
         }
 
-        // CHỨC NĂNG MỚI: Loại bỏ sản phẩm khỏi giỏ hàng
         function removeFromCart(name) {
             globalCart = globalCart.filter(item => item.name !== name);
             renderCartUI();
         }
 
-        // Hàm Render giao diện giỏ hàng
         function renderCartUI() {
             cartItemsContainer.innerHTML = '';
             let totalItemsCount = 0;
@@ -1334,7 +1368,6 @@
                     </div>
                 `;
 
-                // Gắn sự kiện xóa trực tiếp cho nút x vừa tạo
                 row.querySelector('.remove-item-btn').addEventListener('click', () => {
                     removeFromCart(item.name);
                 });
@@ -1346,7 +1379,7 @@
             cartTotalSum.innerText = totalPriceSum.toLocaleString('vi-VN') + 'đ';
         }
 
-        // --- Xử lý click đơn (Mở mô tả) & Double Click/Tap (Thêm vào giỏ) ---
+        // --- 4. CLICK / DOUBLE TAP INTERACTION TRÊN MENU CARD ---
         menuCards.forEach(card => {
             let tapCounter = 0;
             let tapTimer;
@@ -1383,8 +1416,64 @@
             });
         });
 
-        // Parallax nhẹ khi cuộn màn hình
+        // --- 5. LOGIC KHỞI TẠO VÀ XỬ LÝ VẬT THỂ NỀN PARALLAX GRAFFITI (FIXED) ---
+        const bgContainer = document.getElementById('bg-parallax-container');
+        const graffitiIcons = ['fa-spray-can', 'fa-record-vinyl', 'fa-bolt', 'fa-music', 'fa-star'];
+        const graffitiColors = ['#ff007f', '#39ff14']; // Mã màu Hex rực rỡ để map thẳng vào CSS
+        const totalObjectsCount = 20; 
+        const registeredFloatingItems = [];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const totalPageHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+            
+            for(let i = 0; i < totalObjectsCount; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-obj'; // Đồng bộ Class chuẩn chỉnh với CSS
+                
+                const randomIcon = graffitiIcons[Math.floor(Math.random() * graffitiIcons.length)];
+                const randomColor = graffitiColors[Math.floor(Math.random() * graffitiColors.length)];
+                
+                el.innerHTML = `<i class="fa-solid ${randomIcon}"></i>`;
+                
+                // Khai báo biến màu môi trường CSS để kích hoạt bộ lọc phát sáng viền
+                el.style.setProperty('--neon-color', randomColor);
+                el.style.fontSize = (Math.random() * (2.2 - 1.4) + 1.4) + 'rem'; 
+                
+                // Rải ngẫu nhiên tọa độ
+                const posX = Math.floor(Math.random() * 92);
+                const posY = Math.floor(Math.random() * (totalPageHeight - 400)) + 300;
+                
+                el.style.left = `${posX}%`;
+                el.style.top = `${posY}px`;
+                
+                bgContainer.appendChild(el);
+                
+                const parallaxScrollFactor = (Math.random() * (0.3 - 0.08) + 0.08);
+                const baseRotationAngle = Math.random() * 360;
+                
+                registeredFloatingItems.push({
+                    element: el,
+                    initialTop: posY,
+                    scrollSpeedFactor: parallaxScrollFactor,
+                    initialAngle: baseRotationAngle
+                });
+            }
+            updateBackgroundParallax();
+        });
+
+        function updateBackgroundParallax() {
+            const currentScrollY = window.scrollY;
+            registeredFloatingItems.forEach(item => {
+                // Đẩy tịnh tiến lệch pha theo tốc độ scroll chuột
+                const dynamicYOffset = currentScrollY * item.scrollSpeedFactor;
+                const dynamicRotation = item.initialAngle + (currentScrollY * 0.15);
+                item.element.style.transform = `translateY(${dynamicYOffset}px) rotate(${dynamicRotation}deg)`;
+            });
+        }
+
         window.addEventListener('scroll', () => {
+            updateBackgroundParallax();
+            
             const scrollPos = window.scrollY;
             const subtitle = document.querySelector('.hero-subtitle');
             if (scrollPos < 400) {
