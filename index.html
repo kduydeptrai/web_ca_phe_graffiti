@@ -47,7 +47,7 @@
             border-radius: 4px;
         }
 
-        /* --- 2. NAVIGATION --- */
+        /* --- 2. NAVIGATION & CART TRIGER --- */
         nav {
             position: fixed;
             top: 0;
@@ -61,6 +61,12 @@
             backdrop-filter: blur(10px);
             z-index: 1000;
             border-bottom: 2px solid rgba(255, 0, 127, 0.2);
+        }
+
+        .nav-right-zone {
+            display: flex;
+            align-items: center;
+            gap: 30px;
         }
 
         .logo {
@@ -92,6 +98,33 @@
         .nav-links a:hover {
             color: var(--neon-pink);
             text-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        /* Nút giỏ hàng góc phải thanh Menu */
+        .cart-trigger {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .cart-trigger:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -10px;
+            right: -12px;
+            background: var(--neon-pink);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--neon-pink);
         }
 
         /* --- 3. HERO SECTION (THE INTRO) --- */
@@ -290,13 +323,13 @@
             padding: 25px;
             position: relative;
             overflow: hidden;
-            transition: 0.4s ease;
+            cursor: pointer;
+            touch-action: manipulation; /* Tối ưu click/double tap trên Mobile không bị delay */
+            transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
         }
 
         .menu-card:hover {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.2);
-            transform: translateY(-5px);
+            border-color: var(--neon-lime);
         }
 
         .menu-card-img-container {
@@ -317,10 +350,6 @@
             transition: transform 0.4s ease;
         }
 
-        .menu-card:hover .menu-card-img {
-            transform: scale(1.06);
-        }
-
         .menu-card h3 {
             font-family: var(--font-heading);
             font-size: 1.8rem;
@@ -329,13 +358,26 @@
             letter-spacing: 1px;
         }
 
+        /* MẶC ĐỊNH: Giới hạn chiều dọc văn bản mô tả */
         .menu-card p {
             color: var(--text-muted);
             font-size: 0.9rem;
             line-height: 1.6;
             margin-bottom: 20px;
-            height: 70px;
+            max-height: 70px;
             overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* LOGIC: Khi được kích hoạt Single Click để mở rộng đọc nội dung */
+        .menu-card.expanded {
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.3);
+        }
+
+        .menu-card.expanded p {
+            max-height: 250px; /* Tháo khoá chiều cao, kéo giãn 150% chiều dọc mô tả */
+            color: var(--text-light);
         }
 
         .menu-card .card-footer {
@@ -384,18 +426,17 @@
             letter-spacing: 1px;
         }
 
-        /* --- 5. GALLERY SECTION (THE WALL - ĐỔI THEO THIẾT KẾ KHUNG TRANH MẪU) --- */
+        /* --- 5. GALLERY SECTION (THE WALL) --- */
         #gallery {
             padding: 100px 50px;
             background-color: var(--bg-dark);
         }
 
-        /* Khởi tạo Grid 4 cột và 6 hàng để chia tỷ lệ đối xứng tuyệt đối như hình chụp */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(6, 110px); /* Chiều cao cơ sở mỗi hàng trên PC */
-            gap: 16px; /* Khoảng cách vừa phải tạo kẽ hở giữa các khung tranh */
+            grid-template-rows: repeat(6, 110px); 
+            gap: 16px; 
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
@@ -408,21 +449,20 @@
             position: relative;
             height: 100%; 
             width: 100%;
-            border: 5px solid #111; /* Đóng viền khung tranh gỗ đen dày dặn giống ảnh mẫu */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); /* Tạo đổ bóng nổi khối 3D lên tường */
+            border: 5px solid #111; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7); 
             background: #151515;
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
         }
 
-        /* Map tọa độ Grid bám sát 100% theo ảnh mẫu */
-        .gi-1 { grid-column: 1; grid-row: 3 / 5; } /* Tranh bìa trái (Sunflowers) */
-        .gi-2 { grid-column: 2; grid-row: 1 / 3; } /* Tranh nhỏ trên giữa (Single Flower) */
-        .gi-3 { grid-column: 2; grid-row: 3 / 7; } /* Tranh lớn dưới giữa (Girl with flowers) */
-        .gi-4 { grid-column: 3; grid-row: 1 / 5; } /* Tranh lớn trên phải (Girl back view) */
-        .gi-5 { grid-column: 3; grid-row: 5 / 7; } /* Tranh nhỏ dưới phải (Girl & Dog) */
-        .gi-6 { grid-column: 4; grid-row: 2 / 4; } /* Tranh bìa phải (Daisies) */
+        .gi-1 { grid-column: 1; grid-row: 3 / 5; } 
+        .gi-2 { grid-column: 2; grid-row: 1 / 3; } 
+        .gi-3 { grid-column: 2; grid-row: 3 / 7; } 
+        .gi-4 { grid-column: 3; grid-row: 1 / 5; } 
+        .gi-5 { grid-column: 3; grid-row: 5 / 7; } 
+        .gi-6 { grid-column: 4; grid-row: 2 / 4; } 
 
         .gallery-img {
             width: 100%;
@@ -568,6 +608,124 @@
             box-shadow: 5px 5px 0px #000;
         }
 
+        /* --- 7. SIDEBAR CART UI --- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -360px;
+            width: 360px;
+            max-width: 100%;
+            height: 100vh;
+            background: var(--bg-dark);
+            border-left: 3px solid var(--neon-pink);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            z-index: 2000;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--neon-lime);
+            letter-spacing: 1px;
+        }
+
+        .cart-close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .cart-close-btn:hover {
+            color: var(--neon-pink);
+        }
+
+        .cart-items-container {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #1c1c1c;
+        }
+
+        .item-details h4 {
+            font-size: 0.95rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .item-details p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .item-total-price {
+            font-family: var(--font-tag);
+            color: var(--neon-yellow);
+            font-size: 1rem;
+        }
+
+        .cart-footer-panel {
+            border-top: 2px solid #222;
+            padding-top: 20px;
+        }
+
+        .cart-bill-summary {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cart-bill-summary span:last-child {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--neon-lime);
+            border: none;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            color: #000;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 15px var(--neon-lime);
+        }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -585,60 +743,33 @@
             .hero-title span { font-size: 3rem; }
             #menu, #gallery { padding: 60px 15px; }
 
-            /* Ép thực đơn hiển thị 2 sản phẩm trên 1 hàng */
             .menu-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 12px;
             }
 
-            .menu-card {
-                padding: 12px;
-                border-width: 1px;
-            }
+            .menu-card { padding: 12px; border-width: 1px; }
+            .menu-card-img-container { aspect-ratio: 4 / 3; margin-bottom: 10px; }
+            .menu-card h3 { font-size: 1.1rem; margin-bottom: 6px; }
+            
+            /* Thắt chặt chiều cao trên mobile để khi giãn ra 150% sẽ không chiếm hết màn hình */
+            .menu-card p { font-size: 0.75rem; max-height: 45px; margin-bottom: 10px; line-height: 1.4; }
+            .menu-card.expanded p { max-height: 180px; }
 
-            .menu-card-img-container {
-                aspect-ratio: 4 / 3;
-                margin-bottom: 10px;
-            }
-
-            .menu-card h3 {
-                font-size: 1.2rem;
-                margin-bottom: 6px;
-            }
-
-            .menu-card p {
-                font-size: 0.75rem;
-                height: 50px; 
-                margin-bottom: 10px;
-                line-height: 1.4;
-            }
-
-            .menu-card .price {
-                font-size: 0.9rem;
-            }
-
+            .menu-card .price { font-size: 0.85rem; }
             .footer-tags-group { gap: 4px; }
-            .track-number { font-size: 0.75rem; padding: 2px 5px; }
-            .card-type-tag { font-size: 0.6rem; padding: 2px 5px; }
+            .track-number { font-size: 0.7rem; padding: 2px 4px; }
+            .card-type-tag { font-size: 0.55rem; padding: 2px 4px; }
 
-            /* GIỮ NGUYÊN BỐ CỤC TRANH CỦA PC TRÊN MOBILE - CHỈ THU NHỎ KÍCH THƯỚC */
             .gallery-grid {
-                grid-template-columns: repeat(4, 1fr); /* Khóa chặt 4 cột không đổi */
-                grid-template-rows: repeat(6, 52px); /* Giảm chiều cao hàng xuống để thu nhỏ bộ tranh */
-                gap: 6px; /* Co hẹp khoảng cách viền giữa các bức ảnh */
+                grid-template-columns: repeat(4, 1fr); 
+                grid-template-rows: repeat(6, 52px); 
+                gap: 6px; 
                 padding: 10px;
             }
 
-            .gallery-item {
-                border-width: 2px; /* Mỏng viền đen lại cho tương thích mobile */
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-            }
-
-            /* Thu nhỏ text hover tránh tràn chữ ở các ô tranh nhỏ gi-2 và gi-5 */
-            .gallery-overlay h4 {
-                font-size: 0.65rem;
-                transform: translateY(5px);
-            }
+            .gallery-item { border-width: 2px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); }
+            .gallery-overlay h4 { font-size: 0.65rem; transform: translateY(5px); }
         }
     </style>
 </head>
@@ -646,13 +777,35 @@
 
     <nav>
         <a href="#" class="logo">HMB AGENCY</a>
-        <ul class="nav-links">
-            <li><a href="#hero">Intro</a></li>
-            <li><a href="#menu">Tracks</a></li>
-            <li><a href="#gallery">The Wall</a></li>
-            <li><a href="#contact">Cypher</a></li>
-        </ul>
+        <div class="nav-right-zone">
+            <ul class="nav-links">
+                <li><a href="#hero">Intro</a></li>
+                <li><a href="#menu">Tracks</a></li>
+                <li><a href="#gallery">The Wall</a></li>
+                <li><a href="#contact">Cypher</a></li>
+            </ul>
+            <div class="cart-trigger" id="cartOpenBtn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-badge" id="cartBadgeCount">0</span>
+            </div>
+        </div>
     </nav>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>CURRENT TRACKS</h2>
+            <button class="cart-close-btn" id="cartCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items-container" id="cartItemsContainer">
+            </div>
+        <div class="cart-footer-panel">
+            <div class="cart-bill-summary">
+                <span>TOTAL:</span>
+                <span id="cartTotalSum">0đ</span>
+            </div>
+            <button class="checkout-btn">CHECKOUT THE BEAT</button>
+        </div>
+    </div>
 
     <section id="hero">
         <h1 class="hero-title">
@@ -685,13 +838,12 @@
         </div>
 
         <div class="menu-grid" id="menuGrid">
-            
             <div class="menu-card" data-tag="coffee">
                 <div class="menu-card-img-container">
                     <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Espresso Remix">
                 </div>
                 <h3>Espresso Remix</h3>
-                <p>Một cú drop caffeine nguyên chất cực mạnh, đánh thức mọi giác quan giống như tiếng trống Snare đập trực diện.</p>
+                <p>Một cú drop caffeine nguyên chất cực mạnh, đánh thức mọi giác quan giống như tiếng trống Snare đập trực diện vào tai.</p>
                 <div class="card-footer">
                     <span class="price">45.000đ</span>
                     <div class="footer-tags-group">
@@ -706,7 +858,7 @@
                     <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Boom-Bap Latte">
                 </div>
                 <h3>Boom-Bap Latte</h3>
-                <p>Sự cân bằng hoàn hảo giữa Espresso đậm đặc và sữa tươi béo ngậy. Êm dịu như những giai điệu Jazz Hop.</p>
+                <p>Sự cân bằng hoàn hảo giữa Espresso đậm đặc và sữa tươi béo ngậy. Êm dịu như những giai điệu Jazz Hop lướt trên phím đàn piano cổ điển.</p>
                 <div class="card-footer">
                     <span class="price">55.000đ</span>
                     <div class="footer-tags-group">
@@ -721,7 +873,7 @@
                     <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Vinyl Phin Black">
                 </div>
                 <h3>Vinyl Phin Black</h3>
-                <p>Cà phê phin truyền thống đậm đặc, đen tuyền bóng bẩy như những chiếc đĩa than cổ điển vượt thời gian.</p>
+                <p>Cà phê phin truyền thống đậm đặc, đen tuyền bóng bẩy như những chiếc đĩa than cổ điển vượt thời gian lưu giữ ký ức.</p>
                 <div class="card-footer">
                     <span class="price">40.000đ</span>
                     <div class="footer-tags-group">
@@ -736,7 +888,7 @@
                     <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Trap Macchiato">
                 </div>
                 <h3>Trap Macchiato</h3>
-                <p>Sữa béo ngậy đổ tầng với vệt Caramel sắc sảo, dồn dập kích thích vị giác giống một con beat Trap hiện đại.</p>
+                <p>Sữa béo ngậy đổ tầng với vệt Caramel sắc sảo, dồn dập kích thích vị giác giống một con beat Trap hiện đại đầy bass giật.</p>
                 <div class="card-footer">
                     <span class="price">60.000đ</span>
                     <div class="footer-tags-group">
@@ -751,7 +903,7 @@
                     <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Lo-Fi Americano">
                 </div>
                 <h3>Lo-Fi Americano</h3>
-                <p>Cà phê pha loãng thanh nhẹ, mộc mạc và tĩnh lặng, phù hợp cho những ngày mưa ngồi gõ code băm beat.</p>
+                <p>Cà phê pha loãng thanh nhẹ, mộc mạc và tĩnh lặng, phù hợp cho những ngày mưa ngồi một góc gõ code băm beat.</p>
                 <div class="card-footer">
                     <span class="price">45.000đ</span>
                     <div class="footer-tags-group">
@@ -766,7 +918,7 @@
                     <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Freestyle Cappuccino">
                 </div>
                 <h3>Freestyle Cappuccino</h3>
-                <p>Lớp bọt sữa bồng bềnh được tạo hình tự do (Art) ngẫu hứng như những câu rap freestyle đỉnh cao.</p>
+                <p>Lớp bọt sữa bồng bềnh được tạo hình tự do (Art) ngẫu hứng như những câu rap freestyle đỉnh cao thách thức mọi giới hạn.</p>
                 <div class="card-footer">
                     <span class="price">55.000đ</span>
                     <div class="footer-tags-group">
@@ -781,7 +933,7 @@
                     <img src="https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Mellow R&B Mocha">
                 </div>
                 <h3>Mellow R&B Mocha</h3>
-                <p>Sự kết hợp ngọt ngào giữa cốt ca cao đậm và espresso, mượt mà và sâu lắng như một bản nhạc R&B.</p>
+                <p>Sự kết hợp ngọt ngào giữa cốt ca cao đậm và espresso, mượt mà và sâu lắng như một bản nhạc R&B trong đêm lạnh.</p>
                 <div class="card-footer">
                     <span class="price">60.000đ</span>
                     <div class="footer-tags-group">
@@ -796,7 +948,7 @@
                     <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Cypher Green Tea">
                 </div>
                 <h3>Cypher Green Tea</h3>
-                <p>Trà xanh lài thanh mát, hậu vị ngọt dịu, tiếp thêm năng lượng bền bỉ cho những buổi tụ họp Cypher kéo dài.</p>
+                <p>Trà xanh lài thanh mát, hậu vị ngọt dịu, tiếp thêm năng lượng bền bỉ cho những buổi tụ họp Cypher đường phố kéo dài.</p>
                 <div class="card-footer">
                     <span class="price">45.000đ</span>
                     <div class="footer-tags-group">
@@ -811,7 +963,7 @@
                     <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Breakdance Peach Tea">
                 </div>
                 <h3>Breakdance Peach Tea</h3>
-                <p>Trà đào thơm nức kết hợp những miếng đào giòn sần sật, mang lại cảm giác năng động bùng nổ.</p>
+                <p>Trà đào thơm nức kết hợp những miếng đào giòn sần sật, mang lại cảm giác năng động bùng nổ năng lượng.</p>
                 <div class="card-footer">
                     <span class="price">50.000đ</span>
                     <div class="footer-tags-group">
@@ -826,7 +978,7 @@
                     <img src="https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Old-School Oolong">
                 </div>
                 <h3>Old-School Oolong</h3>
-                <p>Trà ô long đậm vị truyền thống, chát nhẹ đầu lưỡi ngọt sương về sau. Giá trị cốt lõi bền vững.</p>
+                <p>Trà ô long đậm vị truyền thống, chát nhẹ đầu lưỡi ngọt sương về sau. Đại diện cho những giá trị cốt lõi bền vững.</p>
                 <div class="card-footer">
                     <span class="price">45.000đ</span>
                     <div class="footer-tags-group">
@@ -841,7 +993,7 @@
                     <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Underground Matcha">
                 </div>
                 <h3>Underground Matcha</h3>
-                <p>Cốt trà xanh Nhật Bản nguyên chất ẩn mình dưới lớp sữa tươi béo ngậy, đắng nhẹ thanh tao.</p>
+                <p>Cốt trà xanh Nhật Bản nguyên chất ẩn mình dưới lớp sữa tươi béo ngậy, vị đắng nhẹ thanh tao đầy bí ẩn.</p>
                 <div class="card-footer">
                     <span class="price">55.000đ</span>
                     <div class="footer-tags-group">
@@ -856,7 +1008,7 @@
                     <img src="https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Scratch Passion Tea">
                 </div>
                 <h3>Scratch Passion Tea</h3>
-                <p>Trà chanh leo chua sảng khoái, làm sạch vòm họng, giật nảy năng lượng như kỹ thuật scratch đĩa.</p>
+                <p>Trà chanh leo chua sảng khoái, làm sạch vòm họng, giật nảy năng lượng như kỹ thuật scratch đĩa điêu luyện.</p>
                 <div class="card-footer">
                     <span class="price">48.000đ</span>
                     <div class="footer-tags-group">
@@ -871,7 +1023,7 @@
                     <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Graffiti Cold Brew">
                 </div>
                 <h3>Graffiti Cold Brew</h3>
-                <p>Cà phê ủ lạnh 24h kết hợp siro trái cây nhiệt đới đầy màu sắc, bùng nổ thị giác và hương vị rebel.</p>
+                <p>Cà phê ủ lạnh 24h kết hợp siro trái cây nhiệt đới đầy màu sắc, bùng nổ thị giác và hương vị độc bản rebel.</p>
                 <div class="card-footer">
                     <span class="price">65.000đ</span>
                     <div class="footer-tags-group">
@@ -886,7 +1038,7 @@
                     <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Beatbox Cookie Blended">
                 </div>
                 <h3>Beatbox Cookie Blended</h3>
-                <p>Bánh quy Oreo xay nhuyễn cùng kem béo, tạo nên những hạt vụn giòn rụm vui tai như tiếng trống beatbox.</p>
+                <p>Bánh quy Oreo xay nhuyễn cùng kem béo, tạo nên những hạt vụn giòn rụm vui tai như tiếng trống hiệu ứng.</p>
                 <div class="card-footer">
                     <span class="price">65.000đ</span>
                     <div class="footer-tags-group">
@@ -901,7 +1053,7 @@
                     <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Acid Pink Smoothie">
                 </div>
                 <h3>Acid Pink Smoothie</h3>
-                <p>Sinh tố dâu tây và sữa chua lên màu hồng Neon nổi loạn, vừa ngon miệng vừa chuẩn gu check-in.</p>
+                <p>Sinh tố dâu tây và sữa chua lên màu hồng Neon nổi loạn, vừa ngon miệng ngọt ngào vừa chuẩn gu sống ảo.</p>
                 <div class="card-footer">
                     <span class="price">60.000đ</span>
                     <div class="footer-tags-group">
@@ -916,7 +1068,7 @@
                     <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Lime Neon Mocktail">
                 </div>
                 <h3>Lime Neon Mocktail</h3>
-                <p>Sự kết hợp giữa soda, chanh rực rỡ và lá bạc hà mát lạnh, thổi bay cái nóng oi bức của đường phố.</p>
+                <p>Sự kết hợp giữa soda sủi tăm, chanh rực rỡ và lá bạc hà mát lạnh, thổi bay cái nóng oi bức của đường phố bụi bặm.</p>
                 <div class="card-footer">
                     <span class="price">58.000đ</span>
                     <div class="footer-tags-group">
@@ -931,7 +1083,7 @@
                     <img src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Turntable Tropical">
                 </div>
                 <h3>Turntable Tropical</h3>
-                <p>Nước ép hỗn hợp xoài, dứa và chanh leo xoay vần hương vị một cách ảo diệu trong khoang miệng.</p>
+                <p>Nước ép hỗn hợp xoài, dứa và chanh leo xoay vần hương vị một cách ảo diệu kích thích khoang miệng người dùng.</p>
                 <div class="card-footer">
                     <span class="price">60.000đ</span>
                     <div class="footer-tags-group">
@@ -946,7 +1098,7 @@
                     <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Street Croissant">
                 </div>
                 <h3>Street Croissant</h3>
-                <p>Bánh sừng bò ngàn lớp nướng giòn rụm bơ thơm nức, nạp nhanh năng lượng cho các writer, dancer.</p>
+                <p>Bánh sừng bò ngàn lớp nướng giòn rụm bơ thơm nức nách, nạp nhanh năng lượng cho các writer, dancer hoạt động.</p>
                 <div class="card-footer">
                     <span class="price">35.000đ</span>
                     <div class="footer-tags-group">
@@ -961,7 +1113,7 @@
                     <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="B-Boy Brownie">
                 </div>
                 <h3>B-Boy Brownie</h3>
-                <p>Bánh Chocolate Brownie đặc dẻo, ngọt đắng đậm đà, kết cấu vững chắc như một cú Freeze trong B-boy.</p>
+                <p>Bánh Chocolate Brownie đặc dẻo, ngọt đắng đậm đà vị cacao, kết cấu vững chắc như một cú đóng Freeze kỹ thuật.</p>
                 <div class="card-footer">
                     <span class="price">38.000đ</span>
                     <div class="footer-tags-group">
@@ -976,7 +1128,7 @@
                     <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=600&auto=format&fit=crop" class="menu-card-img" alt="Graffiti Donut">
                 </div>
                 <h3>Graffiti Donut</h3>
-                <p>Bánh vòng phủ lớp kem đường đa sắc màu ngẫu hứng, ngọt ngào và cực kỳ bắt mắt trên bàn tiệc.</p>
+                <p>Bánh vòng phủ lớp kem đường đa sắc màu ngẫu hứng, hương vị ngọt ngào và cực kỳ bắt mắt trên bàn tiệc.</p>
                 <div class="card-footer">
                     <span class="price">32.000đ</span>
                     <div class="footer-tags-group">
@@ -1046,7 +1198,7 @@
     </footer>
 
     <script>
-        // Vinyl Player Interaction
+        // --- 1. Đầu Đĩa Than Vinyl Player ---
         const playerBtn = document.getElementById('playerBtn');
         const vinylDisc = document.getElementById('vinylDisc');
         const trackText = document.getElementById('trackText');
@@ -1069,7 +1221,7 @@
             }
         });
 
-        // LIVE SEARCH & TAG FILTER LOGIC (MULTI-FILTERING)
+        // --- 2. Live Search & Tag Bộ Lọc Đồ Uống ---
         const searchInput = document.getElementById('searchInput');
         const filterTags = document.querySelectorAll('.filter-tag');
         const menuCards = document.querySelectorAll('.menu-card');
@@ -1095,7 +1247,6 @@
         }
 
         searchInput.addEventListener('input', liveFilter);
-
         filterTags.forEach(tag => {
             tag.addEventListener('click', () => {
                 filterTags.forEach(t => t.classList.remove('active'));
@@ -1104,7 +1255,111 @@
             });
         });
 
-        // Parallax scroll effect
+        // --- 3. LOGIC GIỎ HÀNG THÔNG MINH & CLICK INTERACTION ---
+        let globalCart = [];
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOpenBtn = document.getElementById('cartOpenBtn');
+        const cartCloseBtn = document.getElementById('cartCloseBtn');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartBadgeCount = document.getElementById('cartBadgeCount');
+        const cartTotalSum = document.getElementById('cartTotalSum');
+
+        // Đóng/Mở thanh Sidebar Giỏ hàng
+        cartOpenBtn.addEventListener('click', () => cartSidebar.classList.add('open'));
+        cartCloseBtn.addEventListener('click', () => cartSidebar.classList.remove('open'));
+
+        // Hàm thêm sản phẩm vào giỏ
+        function pushToCart(name, price) {
+            const existingItem = globalCart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                globalCart.push({ name: name, price: price, quantity: 1 });
+            }
+            renderCartUI();
+            
+            // Hiệu ứng nhấp nháy Neon giỏ hàng khi có đồ mới
+            cartOpenBtn.style.color = "var(--neon-lime)";
+            cartOpenBtn.style.textShadow = "0 0 15px var(--neon-lime)";
+            setTimeout(() => {
+                cartOpenBtn.style.color = "";
+                cartOpenBtn.style.textShadow = "";
+            }, 400);
+        }
+
+        // Cập nhật giao diện danh sách giỏ hàng
+        function renderCartUI() {
+            cartItemsContainer.innerHTML = '';
+            let totalItemsCount = 0;
+            let totalPriceSum = 0;
+
+            globalCart.forEach(item => {
+                totalItemsCount += item.quantity;
+                const itemTotal = item.price * item.quantity;
+                totalPriceSum += itemTotal;
+
+                const row = document.createElement('div');
+                row.className = 'cart-item-row';
+                row.innerHTML = `
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>Số lượng: ${item.quantity} x ${item.price.toLocaleString('vi-VN')}đ</p>
+                    </div>
+                    <div class="item-total-price">${itemTotal.toLocaleString('vi-VN')}đ</div>
+                `;
+                cartItemsContainer.appendChild(row);
+            });
+
+            // Ghi dữ liệu tổng thành tiền
+            cartBadgeCount.innerText = totalItemsCount;
+            cartTotalSum.innerText = totalPriceSum.toLocaleString('vi-VN') + 'đ';
+        }
+
+        // --- Xử lý click đơn (Mở mô tả) & Double Click/Tap (Thêm vào giỏ) ---
+        menuCards.forEach(card => {
+            let tapCounter = 0;
+            let tapTimer;
+
+            card.addEventListener('click', function (e) {
+                tapCounter++;
+                if (tapCounter === 1) {
+                    // Đợi 250 mili-giây xem người dùng có bấm tiếp lần 2 không
+                    tapTimer = setTimeout(() => {
+                        // Logic Single Click: Bật/Tắt chế độ mở rộng chiều dọc 150% đọc mô tả
+                        const isExpanded = this.classList.contains('expanded');
+                        // Hạ hết toàn bộ các card khác xuống trước để tránh rối mắt
+                        menuCards.forEach(c => c.classList.remove('expanded'));
+                        if (!isExpanded) {
+                            this.classList.add('expanded');
+                        }
+                        tapCounter = 0;
+                    }, 250);
+                } else if (tapCounter === 2) {
+                    // Xóa đếm ngược của single click vì đây là hành vi Double Click/Tap
+                    clearTimeout(tapTimer);
+                    
+                    // Lấy thông tin sản phẩm
+                    const pName = this.querySelector('h3').innerText;
+                    const pPriceRaw = this.querySelector('.price').innerText;
+                    const pPrice = parseInt(pPriceRaw.replace(/[^0-9]/g, ''));
+                    
+                    // Thực thi thêm vào giỏ hàng
+                    pushToCart(pName, pPrice);
+                    
+                    // Hiệu ứng chớp nháy viền xanh báo hiệu đã gom hàng thành công
+                    this.style.borderColor = "var(--neon-lime)";
+                    this.style.boxShadow = "0 0 15px var(--neon-lime)";
+                    setTimeout(() => {
+                        this.style.borderColor = this.classList.contains('expanded') ? "var(--neon-pink)" : "";
+                        this.style.boxShadow = this.classList.contains('expanded') ? "0 0 20px rgba(255, 0, 127, 0.3)" : "";
+                    }, 300);
+
+                    tapCounter = 0;
+                }
+            });
+        });
+
+        // Parallax nhẹ khi cuộn màn hình
         window.addEventListener('scroll', () => {
             const scrollPos = window.scrollY;
             const subtitle = document.querySelector('.hero-subtitle');
