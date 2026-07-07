@@ -50,15 +50,24 @@
             border-radius: 4px;
         }
 
-        /* KHUNG CSS VẬT THỂ TRÔI NỔI NỀN - CHUẨN ĐỒNG BỘ */
+        /* --- SỬA LỖI: CONTAINER VẬT THỂ PARALLAX TRONG MENU --- */
+        #bg-parallax-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 105; /* Nổi lên trên thẻ sản phẩm (z-index 100) */
+            pointer-events: none; /* Click xuyên qua bình thường */
+            overflow: visible;
+        }
+
         .floating-obj {
             position: absolute;
-            color: transparent; /* Tạo ruột trong suốt */
-            -webkit-text-stroke: 2px var(--neon-color); /* Đường viền neon đậm chất stencil graffiti */
-            filter: drop-shadow(0 0 8px var(--neon-color)); /* Hiệu ứng phát sáng neon bụi bặm */
-            pointer-events: none;
-            z-index: 1; /* Nằm dưới text nhưng nổi trên lớp nền tối */
-            opacity: 0.25; /* Độ mờ tinh tế không gây rối mắt khi xem sản phẩm */
+            color: transparent; 
+            -webkit-text-stroke: 1.5px var(--neon-color); 
+            filter: drop-shadow(0 0 8px var(--neon-color)); 
+            opacity: 0.5; 
             will-change: transform;
             transition: transform 0.1s linear;
         }
@@ -153,7 +162,6 @@
             background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1511920170033-f8396924c348?q=80&w=1974&auto=format&fit=crop') no-repeat center center/cover;
             position: relative;
             padding: 0 20px;
-            z-index: 10;
         }
 
         .hero-title {
@@ -191,6 +199,8 @@
             border: 1px solid var(--neon-lime);
             box-shadow: 0 0 15px rgba(57, 255, 20, 0.3);
             cursor: pointer;
+            position: relative;
+            z-index: 100;
         }
 
         .vinyl {
@@ -235,7 +245,7 @@
             padding: 100px 50px;
             background-color: var(--bg-asphalt);
             position: relative;
-            z-index: 10;
+            overflow: hidden; /* QUAN TRỌNG: Nhốt vật thể trôi nổi không tràn ra ngoài Section này */
         }
 
         .section-title {
@@ -258,6 +268,8 @@
             flex-direction: column;
             gap: 20px;
             align-items: center;
+            position: relative;
+            z-index: 100;
         }
 
         .search-box {
@@ -331,6 +343,8 @@
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 100;
         }
 
         .menu-card {
@@ -446,7 +460,6 @@
             padding: 100px 50px;
             background-color: var(--bg-dark);
             position: relative;
-            z-index: 10;
         }
 
         .gallery-grid {
@@ -460,6 +473,8 @@
             background: #0a0a0a;
             border-radius: 8px;
             border: 1px solid #1a1a1a;
+            position: relative;
+            z-index: 100;
         }
 
         .gallery-item {
@@ -540,7 +555,6 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            z-index: 10;
         }
 
         .flyer {
@@ -552,6 +566,7 @@
             box-shadow: 0 0 30px rgba(57, 255, 20, 0.15);
             transform: rotate(1deg);
             position: relative;
+            z-index: 100;
         }
 
         .flyer::before {
@@ -775,7 +790,7 @@
             color: #555;
             border-top: 1px solid #111;
             position: relative;
-            z-index: 10;
+            z-index: 100;
         }
 
         /* --- 8. RESPONSIVE DESIGN --- */
@@ -816,9 +831,6 @@
     </style>
 </head>
 <body>
-
-    <!-- KHUNG CHỨA TOÀN BỘ VẬT THỂ PARALLAX CHÌM DƯỚI NỀN -->
-    <div id="bg-parallax-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; pointer-events: none;"></div>
 
     <!-- NAVBAR -->
     <nav>
@@ -869,6 +881,10 @@
 
     <!-- MENU SECTION -->
     <section id="menu">
+        
+        <!-- KHUNG CHỨA TOÀN BỘ VẬT THỂ PARALLAX CHỈ GIỚI HẠN TRONG MENU -->
+        <div id="bg-parallax-container"></div>
+
         <h2 class="section-title">THE <span>TRACKLIST</span></h2>
         
         <div class="controls-container">
@@ -1252,7 +1268,7 @@
         <p>&copy; 2026 HMB Agency. All Rights Reserved. Designed for Street Souls.</p>
     </footer>
 
-    <!-- JAVASCRIPT EFFECTS, FILTER & PARALLAX LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         // --- 1. Đầu Đĩa Than Vinyl Player ---
         const playerBtn = document.getElementById('playerBtn');
@@ -1416,46 +1432,47 @@
             });
         });
 
-        // --- 5. LOGIC KHỞI TẠO VÀ XỬ LÝ VẬT THỂ NỀN PARALLAX GRAFFITI (FIXED) ---
+        // --- 5. LOGIC KHỞI TẠO VÀ XỬ LÝ VẬT THỂ NỀN CHỈ NẰM TRONG MENU SECTION ---
         const bgContainer = document.getElementById('bg-parallax-container');
         const graffitiIcons = ['fa-spray-can', 'fa-record-vinyl', 'fa-bolt', 'fa-music', 'fa-star'];
-        const graffitiColors = ['#ff007f', '#39ff14']; // Mã màu Hex rực rỡ để map thẳng vào CSS
-        const totalObjectsCount = 20; 
+        const graffitiColors = ['#ff007f', '#39ff14', '#00ffff']; 
+        const totalObjectsCount = 30; 
         const registeredFloatingItems = [];
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const totalPageHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        window.addEventListener('load', () => {
+            // Lấy chính xác chiều cao của phần chứa Thực Đơn (Menu)
+            const menuSection = document.getElementById('menu');
+            const menuHeight = menuSection.offsetHeight; 
             
             for(let i = 0; i < totalObjectsCount; i++) {
                 const el = document.createElement('div');
-                el.className = 'floating-obj'; // Đồng bộ Class chuẩn chỉnh với CSS
+                el.className = 'floating-obj'; 
                 
                 const randomIcon = graffitiIcons[Math.floor(Math.random() * graffitiIcons.length)];
                 const randomColor = graffitiColors[Math.floor(Math.random() * graffitiColors.length)];
                 
                 el.innerHTML = `<i class="fa-solid ${randomIcon}"></i>`;
-                
-                // Khai báo biến màu môi trường CSS để kích hoạt bộ lọc phát sáng viền
                 el.style.setProperty('--neon-color', randomColor);
-                el.style.fontSize = (Math.random() * (2.2 - 1.4) + 1.4) + 'rem'; 
+                el.style.fontSize = (Math.random() * (3.5 - 1.5) + 1.5) + 'rem'; 
                 
-                // Rải ngẫu nhiên tọa độ
-                const posX = Math.floor(Math.random() * 92);
-                const posY = Math.floor(Math.random() * (totalPageHeight - 400)) + 300;
+                // Rải ngẫu nhiên tọa độ X (5% đến 95%) và Y (chỉ rơi vào vùng từ 0 đến chiều cao của Menu)
+                const posX = Math.floor(Math.random() * 90) + 5;
+                const posY = Math.floor(Math.random() * menuHeight); 
                 
                 el.style.left = `${posX}%`;
                 el.style.top = `${posY}px`;
                 
                 bgContainer.appendChild(el);
                 
-                const parallaxScrollFactor = (Math.random() * (0.3 - 0.08) + 0.08);
+                const parallaxScrollFactor = (Math.random() * 0.4) - 0.2; 
                 const baseRotationAngle = Math.random() * 360;
+                const rotationSpeed = (Math.random() * 0.2) - 0.1;
                 
                 registeredFloatingItems.push({
                     element: el,
-                    initialTop: posY,
                     scrollSpeedFactor: parallaxScrollFactor,
-                    initialAngle: baseRotationAngle
+                    initialAngle: baseRotationAngle,
+                    rotationSpeed: rotationSpeed
                 });
             }
             updateBackgroundParallax();
@@ -1464,9 +1481,8 @@
         function updateBackgroundParallax() {
             const currentScrollY = window.scrollY;
             registeredFloatingItems.forEach(item => {
-                // Đẩy tịnh tiến lệch pha theo tốc độ scroll chuột
                 const dynamicYOffset = currentScrollY * item.scrollSpeedFactor;
-                const dynamicRotation = item.initialAngle + (currentScrollY * 0.15);
+                const dynamicRotation = item.initialAngle + (currentScrollY * item.rotationSpeed);
                 item.element.style.transform = `translateY(${dynamicYOffset}px) rotate(${dynamicRotation}deg)`;
             });
         }
